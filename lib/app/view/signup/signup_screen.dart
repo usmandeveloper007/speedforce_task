@@ -87,7 +87,9 @@ class _SignupScreenState extends State<SignupScreen> {
                   ]),
             ),
             CustomButton(
-              onTap: () {},
+              onTap: () {
+                Get.toNamed(RouteNames.dashBoardScreen);
+              },
               title: AppString.signUp,
               textColor: AppColors.whiteColor,
               fontSize: 22,
@@ -104,7 +106,7 @@ class _SignupScreenState extends State<SignupScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  width: 80,
+                  width: 60,
                   height: 1,
                   decoration: BoxDecoration(
                     color: Colors.grey[300],
@@ -119,7 +121,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   textAlign: TextAlign.center,
                 ),
                 Container(
-                  width: 80,
+                  width: 60,
                   height: 1,
                   decoration: BoxDecoration(
                     color: Colors.grey[300],

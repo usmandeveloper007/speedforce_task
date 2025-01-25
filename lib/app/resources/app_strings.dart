@@ -20,4 +20,21 @@ class AppString {
   static const termsOfService = ' Terms of Service ';
   static const and = ' and ';
   static const privacyPolicy = 'Privacy Policy';
+  static const inviteYourFriends = 'Invite your friends and get big discounts';
+  static const invitationDescription =
+      'Invite your friends to our platform to get plenty of discounts waiting for you! ';
+  static const copyReferralLink = 'Copy Referral Link';
+  static const sendTo = 'Send To';
+  static const sendReferralLink = 'Send Referral Link';
+  static const jobs = 'Jobs';
+  static const earning = 'Earnings';
+  static const profile = 'Profile';
+  static const myProfile = 'My Profile';
+  static const ratings = 'Ratings';
+  static const aboutMe = 'About Me';
+  static const businessLocation = 'Business Location';
+  static const bookings = 'Bookings';
+  static const myServices = 'My Services';
+  static const myEarnings = 'My Earnings';
+  static const details = 'Details';
 }
