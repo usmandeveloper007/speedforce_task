@@ -16,6 +16,7 @@ class AppString {
   static const serviceProvider = 'Service Provider';
   static const firstName = 'First Name';
   static const lastName = 'Last Name';
+  static const phoneNumber = 'Phone Number';
   static const continuingAgreement = 'By continuing you agree to our ';
   static const termsOfService = ' Terms of Service ';
   static const and = ' and ';

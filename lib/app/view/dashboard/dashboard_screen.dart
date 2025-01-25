@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hiring_task/app/controllers/api_data_controller.dart';
 import 'package:hiring_task/app/controllers/dashboard_controller.dart';
 import 'package:hiring_task/app/resources/app_colors.dart';
 import 'package:hiring_task/app/resources/app_images.dart';
@@ -14,11 +15,25 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   DashboardController dashboardController = Get.find<DashboardController>();
+  ApiDataController apiDataController = Get.find<ApiDataController>();
+
+  @override
+  void initState() {
+    super.initState();
+    apiDataController.loginUserData();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Obx(() {
+        if (apiDataController.isLoading.value) {
+          return Center(
+            child: CircularProgressIndicator(
+              color: AppColors.primaryColor,
+            ),
+          );
+        }
         return dashboardController
             .pages[dashboardController.selectedBottomNav.value];
       }),

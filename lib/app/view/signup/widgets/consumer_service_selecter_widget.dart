@@ -12,7 +12,7 @@ class ConsumerServiceSelecterWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: context.screenHeight * 0.07,
+      height: context.screenHeight * 0.06,
       decoration: BoxDecoration(
         color: AppColors.whiteColor,
         borderRadius: BorderRadius.circular(10),
@@ -35,7 +35,7 @@ class ConsumerServiceSelecterWidget extends StatelessWidget {
                   child: Center(
                     child: AppText(
                       title: AppString.consumer,
-                      fontSize: 20,
+                      fontSize: 18,
                       textColor: authController.isConsumerSelected.value
                           ? AppColors.whiteColor
                           : AppColors.primaryColor,
@@ -62,7 +62,7 @@ class ConsumerServiceSelecterWidget extends StatelessWidget {
                   child: Center(
                     child: AppText(
                       title: AppString.serviceProvider,
-                      fontSize: 20,
+                      fontSize: 18,
                       textColor: !authController.isConsumerSelected.value
                           ? AppColors.whiteColor
                           : AppColors.primaryColor,

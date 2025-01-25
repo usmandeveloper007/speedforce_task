@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hiring_task/app/controllers/auth_controller.dart';
 
 class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
@@ -7,39 +8,19 @@ class CustomTextField extends StatelessWidget {
   final String? iconPath;
   final String? suffixIconPath;
   final String fieldType;
-  final bool? isPasswordVisible;
-  final Function()? onTapPassword;
+  final String? Function(String?)? validator;
 
-  const CustomTextField({
+  CustomTextField({
     required this.controller,
     required this.label,
     required this.iconPath,
     required this.fieldType,
     super.key,
-    this.isPasswordVisible,
-    this.onTapPassword,
     this.suffixIconPath,
+    this.validator,
   });
 
-  String? _validate(String? value) {
-    if (value == null || value.isEmpty) {
-      return '$label is required';
-    }
-
-    if (fieldType == 'email') {
-      // Email validation
-      if (!GetUtils.isEmail(value)) {
-        return 'Please enter a valid email address';
-      }
-    } else if (fieldType == 'password') {
-      // Password validation
-      if (value.length < 6) {
-        return 'Password must be at least 6 characters long';
-      }
-    }
-
-    return null;
-  }
+  final AuthController authController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -51,53 +32,78 @@ class CustomTextField extends StatelessWidget {
             color: Colors.grey[100],
             borderRadius: BorderRadius.circular(10),
           ),
-          child: TextFormField(
-            controller: controller,
-            obscureText: fieldType == 'password',
-            decoration: InputDecoration(
-                prefixIcon: iconPath != null
-                    ? Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Image.asset(
-                          iconPath!,
-                          width: 15,
-                          height: 15,
-                          fit: BoxFit.contain,
-                        ),
-                      )
-                    : null,
-                border: OutlineInputBorder(borderSide: BorderSide.none),
-                suffixIcon: fieldType == 'password'
-                    ? IconButton(
+          child: fieldType == 'password'
+              ? Obx(() {
+                  return TextFormField(
+                    controller: controller,
+                    obscureText: authController.isPasswordSeen.value,
+                    decoration: InputDecoration(
+                      prefixIcon: iconPath != null
+                          ? Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Image.asset(
+                                iconPath!,
+                                width: 15,
+                                height: 15,
+                                fit: BoxFit.contain,
+                              ),
+                            )
+                          : null,
+                      border: OutlineInputBorder(borderSide: BorderSide.none),
+                      suffixIcon: IconButton(
                         icon: Icon(
-                          isPasswordVisible!
-                              ? Icons.visibility
-                              : Icons.visibility_off,
+                          authController.isPasswordSeen.value
+                              ? Icons.visibility_off
+                              : Icons.visibility,
                         ),
                         onPressed: () {
-                          onTapPassword!();
+                          authController.updatePasswordSecure();
                         },
-                      )
-                    : fieldType == 'other' || fieldType == 'email'
-                        ? (suffixIconPath != null)
-                            ? Padding(
-                                padding: const EdgeInsets.all(15.0),
-                                child: Image.asset(
-                                  suffixIconPath!,
-                                  width: 15,
-                                  height: 15,
-                                  fit: BoxFit.contain,
-                                ),
-                              )
-                            : null
+                      ),
+                      hintText: label,
+                      hintStyle: const TextStyle(
+                        fontSize: 15,
+                        fontFamily: "Urbanist",
+                      ),
+                    ),
+                    validator: validator,
+                  );
+                })
+              : TextFormField(
+                  controller: controller,
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    prefixIcon: iconPath != null
+                        ? Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Image.asset(
+                              iconPath!,
+                              width: 15,
+                              height: 15,
+                              fit: BoxFit.contain,
+                            ),
+                          )
                         : null,
-                hintText: label,
-                hintStyle: TextStyle(
-                  fontSize: 15,
-                  fontFamily: "Urbanist",
-                )),
-            validator: _validate,
-          ).paddingSymmetric(horizontal: 20, vertical: 10),
+                    border: OutlineInputBorder(borderSide: BorderSide.none),
+                    suffixIcon: suffixIconPath != null
+                        ? Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Image.asset(
+                              suffixIconPath!,
+                              width: 15,
+                              height: 15,
+                              fit: BoxFit.contain,
+                            ),
+                          )
+                        : null,
+                    hintText: label,
+                    hintStyle: const TextStyle(
+                      fontSize: 15,
+                      fontFamily: "Urbanist",
+                    ),
+                  ),
+                  validator: validator,
+                ),
         ),
       ],
     );

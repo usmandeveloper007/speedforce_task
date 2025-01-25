@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hiring_task/app/controllers/api_data_controller.dart';
 import 'package:hiring_task/app/resources/app_colors.dart';
 import 'package:hiring_task/app/resources/app_images.dart';
 import 'package:hiring_task/app/resources/app_strings.dart';
@@ -16,6 +19,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  ApiDataController apiDataController = Get.find<ApiDataController>();
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -52,8 +56,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   width: 110,
                   alignment: Alignment.bottomRight,
                   decoration: BoxDecoration(
-                    image:
-                        DecorationImage(image: AssetImage(AppIcons.avatarIcon)),
+                    image: DecorationImage(
+                        image: NetworkImage(
+                          apiDataController.avatarUrl.value.toString(),
+                          scale: 1,
+                        ),
+                        fit: BoxFit.cover),
                     borderRadius: BorderRadius.circular(100),
                   ),
                   child: Container(
@@ -66,7 +74,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
                 AppText(
-                  title: "David Methew",
+                  title: apiDataController.fullName.value,
                   fontSize: 18,
                   fontWeight: FontWeight.w700,
                   textColor: AppColors.blackColor,
@@ -78,7 +86,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ).paddingOnly(top: 20),
           Center(
             child: AppText(
-              title: "David45812@gmail.com",
+              title: apiDataController.emailAddress.value,
               fontSize: 15,
               fontWeight: FontWeight.w600,
               textColor: AppColors.blackColor,
@@ -96,8 +104,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             textAlign: TextAlign.center,
           ).paddingSymmetric(vertical: 10),
           AppText(
-            title:
-                "Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem",
+            title: apiDataController.aboutMe.value,
             fontSize: 14,
             textColor: AppColors.blackColor,
             fontWeight: FontWeight.w400,

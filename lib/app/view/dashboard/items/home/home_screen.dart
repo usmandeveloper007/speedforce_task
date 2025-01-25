@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hiring_task/app/controllers/api_data_controller.dart';
 import 'package:hiring_task/app/resources/app_colors.dart';
 import 'package:hiring_task/app/resources/app_images.dart';
 import 'package:hiring_task/app/resources/app_strings.dart';
@@ -14,6 +15,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  ApiDataController apiDataController = Get.find<ApiDataController>();
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -48,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           textAlign: TextAlign.start,
                         ),
                         AppText(
-                          title: "David Methew",
+                          title: apiDataController.fullName.value,
                           fontSize: 22,
                           fontWeight: FontWeight.w900,
                           isPrimaryFont: true,
@@ -60,9 +62,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     CircleAvatar(
                       radius: 18,
                       backgroundColor: AppColors.whiteColor,
-                      child: Icon(
-                        Icons.person,
-                        color: AppColors.primaryColor,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(100),
+                        child: Image.network(
+                          height: 30,
+                          width: 30,
+                          apiDataController.avatarUrl.value,
+                          fit: BoxFit.fill,
+                        ),
                       ),
                     ),
                   ],
@@ -89,7 +96,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           textAlign: TextAlign.left,
                         ),
                         AppText(
-                          title: "\$9,545",
+                          title:
+                              "\$${apiDataController.earnings.value.toString()}",
                           fontSize: 32,
                           fontWeight: FontWeight.w700,
                           isPrimaryFont: true,
